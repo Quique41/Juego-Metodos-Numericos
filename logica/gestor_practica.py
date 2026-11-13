@@ -7,12 +7,12 @@ class GestorPractica:
         self.tabla_respuestas = []
         self.iteracion_actual = 0
 
-    def inicializar_sesion(self, problema):
+    def inicializar_sesion(self, problema, metodo_seleccionado): 
         self.problema_actual = problema
         self.iteracion_actual = 0
         
-        # Aquí enrutamos al motor matemático correcto según el problema
-        if problema["metodo"] == "BISECTRIZ":
+        # Evaluamos el método que eligió el usuario
+        if metodo_seleccionado == "BISECTRIZ":
             a = problema["valores_iniciales"]["a"]
             b = problema["valores_iniciales"]["b"]
             resultado = calcular_tabla_bisectriz(problema["funcion_python"], a, b, problema["tolerancia"])
@@ -20,6 +20,7 @@ class GestorPractica:
             if resultado["estado"] == "exito":
                 self.tabla_respuestas = resultado["iteraciones"]
                 return True
+                
         return False
 
     def verificar_respuesta(self, input_valor, margen=0.0001):
